@@ -1,6 +1,7 @@
 import json
 from os.path import join, dirname
 from watson_developer_cloud import TextToSpeechV1
+import simpleaudio as sa
 
 text_to_speech = TextToSpeechV1(
     username='6332656d-4980-42e6-b4e2-76a60e1a88c2',
@@ -12,11 +13,5 @@ text_to_speech = TextToSpeechV1(
 with open(join(dirname(__file__), 'resources/output.wav'),
           'wb') as audio_file:
     audio_file.write(
-        text_to_speech.synthesize('Hallo Welt!', accept='audio/wav',
+        text_to_speech.synthesize('Route wird neu berechnet', accept='audio/wav',
                                   voice="de-DE_BirgitVoice"))
-
-#print(
-#    json.dumps(text_to_speech.pronunciation(
-#        'Watson', pronunciation_format='spr'), indent=2))
-
-#print(json.dumps(text_to_speech.customizations(), indent=2))
