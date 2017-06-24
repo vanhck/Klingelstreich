@@ -1,5 +1,6 @@
 #!usr/bin/python3
 
+
 """
 Repräsentiert ein User-Objekt
 Attribute:

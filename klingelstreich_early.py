@@ -58,7 +58,7 @@ class Chatbot_EarlySupport(TelegramBot):
                 i += 1
             time.sleep(1)
 
-        if order.Lieferwunsch == Order.ADRESSE:
+        if order.Lieferwunsch == 0:
             time.sleep(3)
             self.sende_nachricht("Das Warten hat ein Ende! Dein Paket wird in den nächsten 30min bei dir sein.", id)
             time.sleep(1)
@@ -79,11 +79,11 @@ class Chatbot_EarlySupport(TelegramBot):
 
         time.sleep(3)
 
-        if order.Lieferwunsch == order.ADRESSE:
+        if order.Lieferwunsch == 0:
             self.sende_nachricht("Dein Paket ist zu Hause angekommen.", id)
-        elif order.Lieferwunsch == order.NACHBAR:
+        elif order.Lieferwunsch == 1:
             self.sende_nachricht("Dein Nachbar hat dein Packet für dich entgegen genommen.", id)
-        elif order.Lieferwunsch == order.PACKSTATIOM:
+        elif order.Lieferwunsch == 2:
             self.sende_nachricht("Dein Packet wurde in der Paketstation ABC hinterlegt.", id)
         else:
             print("OH GOD NO")
@@ -105,7 +105,7 @@ class Chatbot_EarlySupport(TelegramBot):
         ' Frage: wann kommt mein Paket?'
 
         if "wann" in nachricht.inhalt and "paket" in nachricht.inhalt:
-            self.sende_nachricht("Die Auslieferung deines Pakets is geplant für den " + date, nachricht.chat.id)
+            self.sende_nachricht("Die Auslieferung deines Pakets is geplant für den " + Order().giveDateAsString(), nachricht.chat.id)
             time.sleep(1)
             self.sende_nachricht("Bist du damit einverstanden?", nachricht.chat.id)
 
@@ -135,7 +135,7 @@ class Chatbot_EarlySupport(TelegramBot):
             self.deny(nachricht)
 
         if "hilfe" in nachricht.inhalt or "help" in nachricht.inhalt:
-            self.sende_nachricht("Ich kann dir beantworten, wo dein Paket ist oder wann es ankommt. Bitte sage mir, falls du zur Zustellzeit nicht zu Hause bist. Falls du Fragen hast welche ich nicht beantworten kann, melde dich unter folgender Nummer: 0800 XXXXXX.")
+            self.sende_nachricht("Ich kann dir beantworten, wo dein Paket ist oder wann es ankommt. Bitte sage mir, falls du zur Zustellzeit nicht zu Hause bist. Falls du Fragen hast welche ich nicht beantworten kann, melde dich unter folgender Nummer: 0800 XXXXXX.", nachricht.sender.id)
 
     def confirm(self, nachricht):
         Chatbot_EarlySupport.Lieferwunsch = 0

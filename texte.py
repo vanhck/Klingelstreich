@@ -4,7 +4,7 @@ INITIALIZE_CONVO = "Dein Paket kommt voraussichtlich am "
 
 ZUHAUSE = "Bist du an diesem Termin zu Hause, um die Lieferung entgegenzunehmen?"
 
-JA = ["ja", "klar", "jep", "yeah", "ja", "natürlich", "ja!", "sí", "oui"]
+JA = ["ja", "klar", "jep", "yeah", "ja", "natürlich", "ja!", "sí", "oui", "gerne"]
 
 NEIN = ["nein", "nö", "ne", "nee", "nope", ]
 
