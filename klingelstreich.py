@@ -20,6 +20,7 @@ __author__ = 'Tina Maria Stroessner'
 __license__ = 'MIT'
 __version__ = 'v1.0'
 
+imAuto = False
 
 class Chatbot(TelegramBot):
 
@@ -27,7 +28,6 @@ class Chatbot(TelegramBot):
     # enthält den main-loop des Bots. Die Methode setzt zunächst das online-Attribut. Danach wird alle 5sek
     # nach Updates gefragt. Auf jede erhaltene Nachricht wird konsekutiv die Methode reagiere() aufgerufen.
 
-    imAuto = False;
 
     def aktivieren(self):
         global user, date, place
@@ -58,7 +58,7 @@ class Chatbot(TelegramBot):
             if len(nachrichten) > 0:
                 antwort = nachrichten[0]
 
-        if antwort in JA:
+        if antwort.inhalt in JA:
             self.confirm(antwort)
         else:
             self.deny(antwort)
@@ -69,11 +69,11 @@ class Chatbot(TelegramBot):
 
         while(True):
             time.sleep(1)
-            os.system('cls' if os.name == 'nt' else 'clear')
+
+            nachrichten = self.hole_updates()
+
             for nachricht in nachrichten:
                 self.reagiere(nachricht)
-            if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
-                break
 
         print("ende")
 
@@ -87,18 +87,27 @@ class Chatbot(TelegramBot):
     #   nachricht   --  Nachricht-Objekt, die Nachricht auf die reagiert werden soll
 
     def reagiere(self, nachricht):
+        global imAuto
         name = nachricht.sender.vorname
         chat = nachricht.chat.id
 
 
         ' Frage: wann kommt mein Paket?'
 
-        if "wann" in nachricht:
-            self.sende_nachricht("Die Auslieferung deines Pakets is geplänt für den" + date)
+        if "wann" in nachricht.inhalt:
+            self.sende_nachricht("Die Auslieferung deines Pakets is geplänt für den" + date, nachricht.chat.id)
             time.sleep(1)
-            self.sende_nachricht("Bist du damit einverstanden?")
+            self.sende_nachricht("Bist du damit einverstanden?", nachricht.chat.id)
 
-            if self.hole_updates()[0] in JA:
+            antwort = 0
+
+            while not antwort:
+
+                nachrichten = self.hole_updates()
+                if len(nachrichten) > 0:
+                    antwort = nachrichten[0]
+
+            if antwort.inhalt in JA:
                 self.confirm(nachricht)
             else:
                 self.deny(nachricht)
@@ -106,11 +115,11 @@ class Chatbot(TelegramBot):
 
         ' Frage: wo ist mein Paket gerade'
 
-        if "wo" in nachricht and "paket" in nachricht:
+        if "wo" in nachricht.inhalt and "paket" in nachricht.inhalt:
             if imAuto:
-                self.sende_nachricht("Dein Paket befindet sich auf dem Weg zu dir.")
+                self.sende_nachricht("Dein Paket befindet sich auf dem Weg zu dir.", nachricht.chat.id)
             else:
-                self.sende_nachricht("Dein Paket ist noch in der Packstation.")
+                self.sende_nachricht("Dein Paket ist noch in der Packstation.", nachricht.chat.id)
 
 
         '''
@@ -166,7 +175,10 @@ class Chatbot(TelegramBot):
         '''
 
     def confirm(self, nachricht):
-        user.status = 1
+
+        global user
+
+
         self.sende_nachricht("Super! Dann wird dein Paket schon bald bei dir sein.", nachricht.sender.id)
         time.sleep(1)
         self.sende_nachricht("Falls du noch irgendwelche Fragen hast, kannst du mir jederzeit schreiben.", nachricht.sender.id)
@@ -182,7 +194,7 @@ class Chatbot(TelegramBot):
             if len(nachrichten) > 0:
                 antwort = nachrichten[0]
 
-        if antwort in JA:
+        if antwort.inhalt in JA:
             self.sende_nachricht("Alles klar!", nachricht.sender.id)
         else:
             self.sende_nachricht("Okay. Das Paket wird in der, deiner Wohnung am nähesten, Packstation abgelegt.", nachricht.sender.id)
