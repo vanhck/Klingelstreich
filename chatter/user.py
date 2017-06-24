@@ -10,11 +10,6 @@ Attribute:
     username    --  Username des Users, 'None' falls nicht vorhanden
 """
 
-__author__ = 'Tina Maria Stroessner'
-__license__ = 'MIT'
-__version__ = 'v1.0'
-
-
 class User(object):
     # represents a user
     # attributes

@@ -9,11 +9,6 @@ Attribute:
     titel     --      Titel von Gruppen, Suppergruppen und Kanälen, 'None' falls kein Titel vorhanden
 """
 
-__author__ = 'Tina Maria Stroessner'
-__license__ = 'MIT'
-__version__ = 'v1.0'
-
-
 class Chat(object):
 
     def __init__(self, chat):

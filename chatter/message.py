@@ -15,10 +15,6 @@ Attribute:
 from chatter.chat import Chat
 from chatter.user import User
 
-__author__ = 'Tina Maria Stroessner'
-__license__ = 'MIT'
-__version__ = 'v1.0'
-
 
 class Nachricht(object):
 

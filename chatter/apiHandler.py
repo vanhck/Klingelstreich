@@ -21,10 +21,6 @@ import requests
 from chatter.message import Nachricht
 from chatter.user import User
 
-__author__ = 'Tina Maria Stroessner'
-__license__ = 'MIT'
-__version__ = 'v1.0'
-
 # statische String-Variablen zur Erzeugung der HTTP URIs
 SITE = "https://api.telegram.org/bot"
 GET_ME = "/GetMe"
