@@ -21,10 +21,12 @@ class User(object):
     #   id      --  unique identifier for the user
     #   vorname  --  first name of the user
     #   nachname   --  last name of the user
+    #   status   --    at home or not at time of delivery
 
     def __init__(self, user):
         self.id = user["id"]
         self.vorname = user["first_name"]
+        self.status = 0
         try:
             self.nachname = user["last_name"]
         except KeyError:
