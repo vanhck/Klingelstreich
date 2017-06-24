@@ -1,5 +1,5 @@
 """
-Konfigurationsdatei für die Implementierung von @CoderDojo_Bot
+Konfigurationsdatei für die Implementierung von @Klingelstreich_Bot
 """
 
 OAUTH = "393319749:AAGPhny8D4i3S80NEUp24pw2kS1w-5EPzjo"

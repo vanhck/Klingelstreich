@@ -94,7 +94,7 @@ class TelegramBot(object):
         self.online = True
         self.hole_updates()
 
-    # Funktiob gehe_offline
+    # Funktion gehe_offline
     # setzt self.online auf 'False'
     def gehe_offline(self):
         self.online = False
@@ -151,6 +151,7 @@ class TelegramBot(object):
     # Rückgabewert:
     #   Liste aller Administratoren des Chats (User-Objekte)
     #   -1 falls ein Fehler aufetreten ist
+
     def gib_Admins(self, chat_id):
         try:
             send_url = SITE + self.oauth + GET_ADMINS + "chat_id=" + chat_id

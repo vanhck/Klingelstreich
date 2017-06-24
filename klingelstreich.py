@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 
 from chatter.apiHandler import TelegramBot
-from texte import BEGRUESSUNG, VERABSCHIEDUNG, IDENTITAET, GEFUEHLS_ZUSTAND
+from texte import BEGRUESSUNG, VERABSCHIEDUNG, IDENTITAET, GEFUEHLS_ZUSTAND, INITIALIZE_CONVO
 import config
 
 __author__ = 'Tina Maria Stroessner'
@@ -35,9 +35,11 @@ class Chatbot(TelegramBot):
             nachrichten = self.hole_updates()
 
             for nachricht in nachrichten:
+
+                self.sende_nachricht(INITIALIZE_CONVO + "24. April", nachricht.chat.id)
                 self.reagiere(nachricht)
 
-            time.sleep(5)
+            time.sleep(1)
 
         print("Bot wird deaktiviert")
 
@@ -49,6 +51,7 @@ class Chatbot(TelegramBot):
     def reagiere(self, nachricht):
         name = nachricht.sender.vorname
         chat = nachricht.chat.id
+
 
         begruessung_benutzt = [wort for wort in nachricht.inhalt.split() if wort in BEGRUESSUNG]
         verabschiedung_benutzt = [wort for wort in nachricht.inhalt.split() if wort in VERABSCHIEDUNG]
@@ -98,6 +101,8 @@ class Chatbot(TelegramBot):
 
         else:
             self.sende_nachricht("Du nuschelst", chat)
+
+
 
 boty = Chatbot(config.OAUTH)
 boty.aktivieren()
